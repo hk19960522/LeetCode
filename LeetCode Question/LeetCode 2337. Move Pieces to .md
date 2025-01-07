@@ -46,3 +46,44 @@ public:
     }
 };
 ```
+
+class Solution {
+public:
+    bool isSub(const string & s1, const string & s2)
+    {
+        int n1 = s1.length(), n2 = s2.length();
+        for (int i = 0; i < n2 - n1; i++) {
+            bool is_sub = true;
+            for (int j = 0; j < n1; j++) {
+                if (s1[j] != s2[j + i]) {
+                    is_sub = false;
+                    break;
+                }
+            }
+
+            if (is_sub) return true;
+        }
+
+        return false;
+    }
+    vector<string> stringMatching(vector<string>& words) {
+        sort(words.begin(), words.end(), [](const string & s1, const string & s2)
+        {
+            return s1.length() < s2.length();
+        });
+
+        vector<string> res;
+        int n = words.size();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (isSub(words[i], words[j])) {
+                    res.push_back(words[i]);
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
+};
