@@ -1,20 +1,17 @@
-bool isPrefixAndSuffix(const string & str1, const string & str2)
-    {
-        if (str1.length() > str2.length()) return false;
+class Solution {
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n = graph.size();
 
-        int n = str1.length(), m = str2.length();
-        return str2.substr(0, n) == str1 && str2.substr(m - n, n) == str1;
-    }
-    int countPrefixSuffixPairs(vector<string>& words) {
-        int res = 0;
-        int n = words.size();
+        vector<int> degree(n, 0);
+        priority_queue<pair<int, int>> pq;
+        vector<vector<int>> source(n, vector<int>(0));
+        vector<int> res;
         
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (isPrefixAndSuffix(words[i], words[j]) {
-                    res++;
-                }
+               }
             }
         }
+
         return res;
     }
+};
