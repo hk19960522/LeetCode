@@ -1,32 +1,25 @@
 class Solution {
 public:
-    int tupleSameProduct(vector<int>& nums) {
-        int res = 0, n = nums.size();
+    string clearDigits(string s) {
+        deque<char> dq;
 
-        sort(nums.begin(), nums.end());
-
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 3; j < n; j++) {
-                int target = nums[i] * nums[j];
-                int l = i + 1, r = j - 1;
-
-                while (l < r) {
-                    int mul = nums[l] * nums[r];
-                    if (mul == target) {
-                        res ++;
-                        l ++;
-                        r --;
-                    }
-                    else if (mul > target) {
-                        r --;
-                    }
-                    else {
-                        l ++;
-                    }
+        for (char ch : s) {
+            if (ch >= '0' && ch <= '9') {
+                if (!dq.empty()) {
+                    dq.pop_back();
                 }
+            }
+            else {
+                dq.push_back(ch);
             }
         }
 
-        return res * 8;
+        string res;
+        while (!dq.empty()) {
+            res += dq.front();
+            dq.pop_front();
+        }
+
+        return res;
     }
 };
