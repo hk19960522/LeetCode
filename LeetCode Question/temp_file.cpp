@@ -1,23 +1,31 @@
 class Solution {
 public:
-    string clearDigits(string s) {
-        deque<char> dq;
-
-        for (char ch : s) {
-            if (ch >= '0' && ch <= '9') {
-                if (!dq.empty()) {
-                    dq.pop_back();
-                }
-            }
-            else {
-                dq.push_back(ch);
-            }
+    int getDigitSum(int num) {
+        int res = 0;
+        while (num) {
+            res += num % 10;
+            num /= 10;
         }
 
-        string res;
-        while (!dq.empty()) {
-            res += dq.front();
-            dq.pop_front();
+        return res;
+    }
+    int maximumSum(vector<int>& nums) {
+        int res = -1;
+        vector<vector<int>> record(50, vector<int>(2, -1));
+
+        for (int num : nums) {
+            int sum = getDigitSum(num);
+            if (num > record[sum][0]) {
+                record[sum][1] = record[sum][0];
+                record[sum][0] = num;
+            }
+            else if (num > record[sum][1]) {
+                record[sum][1] = num;
+            }
+
+            if (record[sum][0] != -1 && record[sum][1] != -1) {
+                res = max(res, record[sum][0] + record[sum][1]);
+            }
         }
 
         return res;
