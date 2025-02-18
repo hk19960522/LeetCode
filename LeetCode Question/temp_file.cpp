@@ -1,33 +1,31 @@
 class Solution {
 public:
-    int minOperations(vector<int>& nums, int k) {
-        int n = 0, res = 0;
-        priority_queue<int, vector<int>, greater<int>> pq;
+    string smallestNumber(string pattern) {
+        deque<int> v, head;
 
-        for (int num : nums) {
-            if (num < k) {
-                pq.push(num);
-                n++;
-            }
-        }
-
-        while (n >= 2) {
-            int a = pq.top(), b;
-            pq.pop();
-            b = pq.top();
-            pq.pop();
-
-            if (a * 2 + b >= k) {
-                n -= 2;
+        head.push_back(0);
+        int cnt = 1;
+        for (char ch : pattern) {
+            if (ch == 'D') {
+                head.push_back(cnt);
             }
             else {
-                n -= 1;
-                pq.push(a * 2 + b);
+                while (!head.empty()) {
+                    v.push_front(head.back());
+                    head.pop_back();
+                }
+
+                head.push_back(cnt);
             }
-            res ++;
+            cnt++;
         }
 
-        return res;
+        string str;
+        str.resize(pattern.size() + 1);
 
+        while (!v.empty()) {
+            str[v.front()] = cnt--;
+        }
+        return str;
     }
 };
