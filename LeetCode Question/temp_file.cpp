@@ -1,31 +1,21 @@
 class Solution {
 public:
-    string smallestNumber(string pattern) {
-        deque<int> v, head;
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        int n = nums.size(), l = 0, r = n - 1;
+        vector<int> res(n, pivot);
 
-        head.push_back(0);
-        int cnt = 1;
-        for (char ch : pattern) {
-            if (ch == 'D') {
-                head.push_back(cnt);
+        for (int i = 0; i < n; i++) {
+            if (nums[i] < pivot) {
+                res[l++] = nums[i];
             }
-            else {
-                while (!head.empty()) {
-                    v.push_front(head.back());
-                    head.pop_back();
-                }
-
-                head.push_back(cnt);
-            }
-            cnt++;
         }
 
-        string str;
-        str.resize(pattern.size() + 1);
-
-        while (!v.empty()) {
-            str[v.front()] = cnt--;
+        for (int i = n - 1; i >= 0; i--) {
+            if (nums[i] > pivot) {
+                res[r--] = nums[i];
+            }
         }
-        return str;
+
+        return res;
     }
 };
